@@ -438,7 +438,6 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
 
-
   Run-Cypress-Test17-2:
     name: Cypress Test 17.2
     if: success() || failure()
