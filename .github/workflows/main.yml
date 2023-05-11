@@ -612,7 +612,7 @@ jobs:
           mv allure-results-14/* allure-results
           mv allure-results-15/* allure-results
           mv allure-results-16/* allure-results
-          mv allure-results-17.0/* allure-results
+          mv allure-results-17/* allure-results
           mv allure-results-17.1/* allure-results
           mv allure-results-17.2/* allure-results
           mv allure-results-18/* allure-results
@@ -650,5 +650,5 @@ jobs:
           SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN }}
         with:
           # custom message to send to slack
-          args: '{\"channel\":\"${{ secrets.SLACK_PR_CHANNEL_ID }}\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Automated test report* https://qa-user1.github.io/testing-plugin-error/  \"}}]}'
+          args: '{\"channel\":\"${{ secrets.SLACK_PR_CHANNEL_ID }}\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Automated test report* https://qa-user1.github.io/nucleus-w-portal/  \"}}]}'
 
