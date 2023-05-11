@@ -638,6 +638,7 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
 
+
   slack-notification:
     name: Notify on Slack
     runs-on: ubuntu-latest
