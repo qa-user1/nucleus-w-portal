@@ -604,21 +604,21 @@ jobs:
           mv allure-results-6/* allure-results
           mv allure-results-8/* allure-results
           mv allure-results-9/* allure-results
-       #   mv allure-results-10/* allure-results
-       #   mv allure-results-11/* allure-results
-       #   mv allure-results-12/* allure-results
-       #   mv allure-results-13/* allure-results
-       #   mv allure-results-14/* allure-results
-       #   mv allure-results-15/* allure-results
-       #   mv allure-results-16/* allure-results
-       #   mv allure-results-17/* allure-results
-       #   mv allure-results-17.1/* allure-results
-       #   mv allure-results-17.2/* allure-results
-       #   mv allure-results-18/* allure-results
-       #   mv allure-results-19/* allure-results
-       #   mv allure-results-20/* allure-results
-       #   mv allure-results-21/* allure-results
-       #   mv allure-results-22/* allure-results
+          mv allure-results-10/* allure-results
+          mv allure-results-11/* allure-results
+          mv allure-results-12/* allure-results
+          mv allure-results-13/* allure-results
+          mv allure-results-14/* allure-results
+          mv allure-results-15/* allure-results
+          mv allure-results-16/* allure-results
+          mv allure-results-17/* allure-results
+          mv allure-results-17.1/* allure-results
+          mv allure-results-17.2/* allure-results
+          mv allure-results-18/* allure-results
+          mv allure-results-19/* allure-results
+          mv allure-results-20/* allure-results
+          mv allure-results-21/* allure-results
+          mv allure-results-22/* allure-results
 
       - uses: actions/setup-java@v3
         with:
