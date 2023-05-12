@@ -3,9 +3,7 @@ const D = require('../fixtures/data');
 const C = require('../fixtures/constants');
 
 context('Client Portal - Home', () => {
-
-
-
+    
     beforeEach(function () {
         /*Cypress.Cookies.debug(true)
         cy.preserveCookieOnce(
