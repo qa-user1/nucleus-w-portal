@@ -34,7 +34,7 @@ context('Test 2 Factor Login is working', () => {
             .click_submit_sign_up_button()
     });
 
-    
+
     xit('Get SMS and apply it in 2FA form', () => {
         cy.wait(10000)
         cy.request({
