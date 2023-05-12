@@ -18,9 +18,9 @@ async function sendEmail(attachment1, attachment2) {
     // send mail with defined transport object
     let info = await transporter.sendMail({
         from: '"Test" <protractor.user2@gmail.com>', // sender address
-    //    to: "testing@nucleuswealth.com", // list of receivers
+        to: "testing@nucleuswealth.com", // list of receivers
     //    to: "sumejja.s.i@gmail.com", // list of receivers
-        to: "senderovic.amina@gmail.com", // list of receivers
+    //    to: "senderovic.amina@gmail.com", // list of receivers
         subject: "Test Summary", // Subject line
         text: "Automation Test Summary", // plain text body
         html: "<b>Test Summary</b>", // html body
