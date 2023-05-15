@@ -346,7 +346,7 @@ export default class BasePage {
         return this;
     };
 
-    verify_email_arrives_to_specified_address(emailAccount, emailTemplate) {
+    /*verify_email_arrives_to_specified_address(emailAccount, emailTemplate) {
         cy.task('fetchGmailUnseenMails', {
             username: emailAccount.email,
             password: emailAccount.password,
@@ -366,9 +366,57 @@ export default class BasePage {
         })
 
         return this;
-    };
+    };*/
+    verify_email_arrives_to_specified_address(emailAccount, emailTemplate) {
+        const MAX_WAIT_TIME = 90000; // Maximum wait time of 90 seconds
+        let startTime = new Date().getTime();
 
-    navigate_to(url) {
+        const checkEmail = () => {
+            return cy.task('fetchGmailUnseenMails', {
+                username: emailAccount.email,
+                password: emailAccount.password,
+                markSeen: false
+            }).then(emails => {
+                if (emails.length > 0) {
+                    cy.log('EMAIL IS ' + JSON.stringify(emails[0]))
+                    var last_unread_email = emails[0];
+                    assert.include(last_unread_email.from, emailTemplate.from);
+                    assert.include(last_unread_email.subject, emailTemplate.subject);
+
+                    let email = (JSON.stringify(last_unread_email.body)).replace(/(\r\n\r\n|\n|\r)/gm, "");
+
+                    emailTemplate.attachments.forEach(filename => {
+                        assert.isAbove(email.indexOf(filename), -1)
+                    })
+
+                    return cy.wrap(true);
+                } else {
+                    return cy.wrap(false);
+                }
+            });
+        };
+
+        const retryCheckEmail = () => {
+            checkEmail().then((result) => {
+                if (!result) {
+                    let currentTime = new Date().getTime();
+                    if (currentTime - startTime < MAX_WAIT_TIME) {
+                        cy.wait(5000); // wait for 5 seconds
+                        retryCheckEmail(); // try again
+                    } else {
+                        throw new Error("Email check timed out");
+                    }
+                }
+            });
+        };
+
+        retryCheckEmail();
+
+return this;
+    }
+
+
+navigate_to(url) {
         cy.visit(url);
         return this;
     };

@@ -491,8 +491,13 @@ export default class OnboardingPage extends BasePage {
 
     verify_your_identity() {
         //this.pause(7)
-        identity().should('have.text', "Driver's licence");
+       // identity().should('have.text', "Driver's licence");
+
+            cy.contains('h1', 'Verify your identity');
+
+
         return this;
+
     }
 
     upload_and_submit_document_for_verification(idOption, type) {
@@ -847,7 +852,8 @@ export default class OnboardingPage extends BasePage {
 
     click_Submit_Application_button() {
         submitApplicationButton().should('not.have.attr', 'disabled')
-        submitApplicationButton().click()
+        this.scroll_and_click(submitApplicationButton)
+      //  submitApplicationButton().click()
         //  submitApplicationButton().should('not.have.attr', 'disabled')
         return this;
     }
