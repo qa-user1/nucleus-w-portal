@@ -547,6 +547,7 @@ export default class LoginPage extends BasePage {
     }
 
 
+    
     verify_number_of_documents(number) {
         visitDownloadPageButton2().then(elements => {
             cy.log(elements.length);
