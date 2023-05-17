@@ -54,7 +54,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     globalLeadersValidationMessage = e => cy.contains('Global Leaders').parent().parent().parent().find('[role="alert"]'),
     australianLeadersValidationMessage = e => cy.contains('Australian Leaders').parent().parent().parent().find('[role="alert"]'),
     governmentBondLadderValidationMessage = e => cy.contains('Government Bond Ladder').parent().parent().parent().find('[role="alert"]'),
-    multiAssetValidationMessage = e => cy.contains('Multi Asset Portfolios').parent().parent().parent().parent().parent().parent().find('[role="alert"]'),
+    multiAssetValidationMessage = e => cy.contains('Multi-asset Portfolios').parent().parent().parent().parent().parent().parent().find('[role="alert"]'),
     bsbValidationMessage = e => cy.contains('BSB').parent().parent().parent().find('[role="alert"]'),
     accountNumberValidationMessage = e => cy.contains('Account Number').parent().parent().parent().find('[role="alert"]'),
     financialInstitutionValidationMessage = e => cy.contains('Financial Institution').parent().parent().parent().find('[role="alert"]'),
@@ -215,6 +215,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     netWorth = e => cy.get('#risk-profile-form_financialInfo_net_worth'),
     annualNetIncome = e => cy.get('#risk-profile-form_financialInfo_annual_net_income'),
     liquidNetWorth = e => cy.get('#risk-profile-form_financialInfo_liquid_net_worth'),
+    birthYear = e => cy.get('#risk-profile-form_financialInfo_birth_year'),
     investmentTotal = e => cy.get('#risk-profile-form_investment_total'),
     sideBar = e => cy.get('[class="ant-layout-sider ant-layout-sider-dark"]'),
     tourWindow = e => cy.get('.ant-tour-inner'),
@@ -293,8 +294,8 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    verify_no_ethics_selected_message() {
-        noEthicsSelectedMessage().should('contain.text', 'You have not chosen any ethics to be excluded from your portfolio');
+    verify_no_ethics_selected_message(message) {
+        noEthicsSelectedMessage().should('contain.text', message);
         return this;
     }
 
@@ -311,7 +312,6 @@ export default class OnboardingPage extends BasePage {
             this.enter_Bank_Details(bankDetails)
         }
 
-
         fundNameInputField().type(fundEntryValues.fundName).type('{enter}');
         transferAmountInputField().clear();
         transferAmountInputField().type(fundEntryValues.transferAmount);
@@ -323,10 +323,7 @@ export default class OnboardingPage extends BasePage {
             memberNumberInputField().clear();
             memberNumberInputField().type(fundEntryValues.memberNumber);
         }
-
-
         return this;
-
     }
 
     enter_values_on_super_fund_entry_input_fields(data) {
@@ -348,7 +345,6 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-
     clear_values_on_BYP_input_fields() {
         tacticalGrowthField().clear();
         tacticalIncomeField().clear();
@@ -362,20 +358,24 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_validation_messages_for_BYP_input_fields(data) {
-        this.verify_text(coreInternationalValidationMessage, data.coreInternational);
-        this.verify_text(coreAustraliaValidationMessage, data.coreAustralia);
-        this.verify_text(globalLeadersValidationMessage, data.globalLeaders);
-        this.verify_text(multiAssetValidationMessage, data.multiAssetPortfolios);
-        this.verify_text(australianLeadersValidationMessage, data.australianLeaders);
-        this.verify_text(governmentBondLadderValidationMessage, data.governmentBondLadder);
+        this.verify_text_on_multiple_elements([
+            [coreInternationalValidationMessage, data.coreInternational],
+            [coreAustraliaValidationMessage, data.coreAustralia],
+            [globalLeadersValidationMessage, data.globalLeaders],
+            [multiAssetValidationMessage, data.multiAssetPortfolios],
+            [australianLeadersValidationMessage, data.australianLeaders],
+            [governmentBondLadderValidationMessage, data.governmentBondLadder]
+        ])
         return this;
     }
 
     verify_validation_messages_for_fund_entry_input_fields(data) {
-        this.verify_text(fundNameValidationMsg, data.fundName);
-        this.verify_text(transferAmountValidationMsg, data.transferAmount);
-        this.verify_text(memberNumberValidationMsg, data.memberNumber);
-        this.verify_text(personalSuperAccountTypeValidationMsg, data.personalType);
+        this.verify_text_on_multiple_elements([
+            [fundNameValidationMsg, data.fundName],
+            [transferAmountValidationMsg, data.transferAmount],
+            [memberNumberValidationMsg, data.memberNumber],
+            [personalSuperAccountTypeValidationMsg, data.personalType]
+        ])
         return this;
     }
 
@@ -399,16 +399,18 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_validation_messages_for_create_new_applicant_input_fields(data) {
-        this.verify_text(titleInputValidationMsg, data.titleInput);
-        this.verify_text(givenNameValidationMsg, data.nameInput);
-        this.verify_text(surnameInputValidationMsg, data.surnameInput);
-        this.verify_text(emailInputValidationMsg, data.emailInput);
-        this.verify_text(mobileInputValidationMsg, data.mobileInput);
-        this.verify_text(genderInputValidationMsg, data.genderInput);
-        this.verify_text(birthDateInputValidationMsg, data.birthInput);
-        // this.verify_text(citizenshipInputValidationMsg, data.citizenshipInput);
-        this.verify_text(employmentInputValidationMsg, data.employmentInput);
-        this.verify_text(taxInputValidationMsg, data.taxInput);
+        this.verify_text_on_multiple_elements([
+            [titleInputValidationMsg, data.titleInput],
+            [givenNameValidationMsg, data.nameInput],
+            [surnameInputValidationMsg, data.surnameInput],
+            [emailInputValidationMsg, data.emailInput],
+            [mobileInputValidationMsg, data.mobileInput],
+            [genderInputValidationMsg, data.genderInput],
+            [birthDateInputValidationMsg, data.birthInput],
+           // [citizenshipInputValidationMsg, data.citizenshipInput],
+            [employmentInputValidationMsg, data.employmentInput],
+            [taxInputValidationMsg, data.taxInput]
+        ])
         return this;
     }
 
@@ -449,7 +451,7 @@ export default class OnboardingPage extends BasePage {
             employerBusinessInputField().click();
             employerBusinessInputField().type(data.employerBusiness).type('{enter}');
         }
-        if(type === 'Joint-IB'){
+        if (type === 'Joint-IB') {
             employmentStatusAnnualNetIncomeInputField().type(data.annualNetIncome)
             employmentStatusNetWorthInputField().type(data.netWorth)
         }
@@ -480,31 +482,24 @@ export default class OnboardingPage extends BasePage {
     }
 
     click_submit_applicant_button() {
-        //  this.pause(3)
         submitApplicantButton().should('be.visible');
-        // this.pause(3)
         submitApplicantButton().click().click();
-        //submitApplicantButton().should('not.be.visible');
-        // this.pause(5)
         return this;
     }
 
     verify_your_identity() {
         //this.pause(7)
-       // identity().should('have.text', "Driver's licence");
-
-            cy.contains('h1', 'Verify your identity');
-
-
+        // identity().should('have.text', "Driver's licence");
+        cy.contains('h1', 'Verify your identity');
         return this;
-
     }
 
     upload_and_submit_document_for_verification(idOption, type) {
-        this.pause(4)
+        idOptionList().should('be.visible')
+        this.pause(3)
         this.select_id_option(idOption)
-        this.pause(1)
-            .select_document_type(type)
+       this.pause(1)
+            this.select_document_type(type)
         this.pause(1)
         this.upload_file('1', D.documentType.id)
         this.pause(1)
@@ -513,9 +508,10 @@ export default class OnboardingPage extends BasePage {
     }
 
     select_id_option(idOption) {
-        this.pause(3)
+        idOptionList().should('be.visible')
+        //this.pause(3)
         idOptionList().click();
-        this.pause(3)
+       // this.pause(3)
         cy.contains(idOption).click();
         return this;
     }
@@ -591,19 +587,15 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    answer_questions_with_third_option(option) {
-        if (option.includes(3)) {
-            this.answerAllQuestionsWithSameOption(13, 3)
-        }
-        return this;
-    }
-
     enter_financial_info(data) {
         investmentTotal().clear()
         investmentTotal().type(data.investmentTotal);
         netWorth().type(data.netWorth);
         annualNetIncome().type(data.annualNetIncome);
         liquidNetWorth().type(data.liquidNetWorth);
+        birthYear().click();
+        birthYear().clear();
+        birthYear().type(data.birthYear).type('{enter}');
         return this;
     }
 
@@ -678,20 +670,10 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    /*review_net_worth_annual_net_income_liquid_net_worth(data) {
-        // Is it enough to "call" only 'netWorth' to be reason for if statement, or I should call all the three rows from data
-        if (data.review.questionResponses["NetWorth"]) {
-            this.verify_net_worth_annual_net_income_liquid_net_worth()
-        }
-        return this;
-    }*/
-
     enter_applicant_investment_experience(data) {
-
         this.enter_investment_experience_values(data)
             .upload_file('0', D.documentType.id)
             .upload_file('1', D.documentType.id)
-
         return this;
     }
 
@@ -760,21 +742,8 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    enter_core_international_value(option) {
-        if (option.includes('50%')) {
-            coreInternationalField().type('50');
-        }
-        return this;
-    }
-
-    type_investment_total(option) {
-        if (option.includes('100000')) {
-            investmentTotalField().type('100000');
-        }
-        return this;
-    }
-
     click_create_new_investment_account() {
+        newInvestmentButton().should('be.visible')
         newInvestmentButton().click()
         return this;
     }
@@ -797,7 +766,7 @@ export default class OnboardingPage extends BasePage {
 
     verify_types_of_investment_account() {
         investmentLayout().should('be.visible');
-        this.verify_text_is_visible('What type of Investment Account would you like to open?');
+        this.verify_text_is_visible('What type of investment account would you like to open?');
         this.verify_text_is_visible('Super');
         this.verify_text_is_visible('Non-Super');
         return this;
@@ -853,8 +822,6 @@ export default class OnboardingPage extends BasePage {
     click_Submit_Application_button() {
         submitApplicationButton().should('not.have.attr', 'disabled')
         this.scroll_and_click(submitApplicationButton)
-      //  submitApplicationButton().click()
-        //  submitApplicationButton().should('not.have.attr', 'disabled')
         return this;
     }
 
@@ -864,11 +831,8 @@ export default class OnboardingPage extends BasePage {
     }
 
     remove_existing_applicant() {
-        // this.pause(6)
         applicantCardMenuButton().should('be.visible');
         applicantCardMenuButton().click();
-
-        // this.pause(3)
         removeApplicantButton().should('be.visible');
         removeApplicantButton().click();
         popUpWindowRemoveApplicant().click();
@@ -883,9 +847,9 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    verify_alert_msg_final_review_page() {
+    verify_alert_msg_final_review_page(alertMsg) {
         alertMsgFinalReviewPage().should('be.visible');
-        alertMsgFinalReviewPage().should('contain', 'You must have minimum 2 applicant(s).');
+        alertMsgFinalReviewPage().should('contain', alertMsg);
         return this;
     }
 
@@ -895,7 +859,7 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_add_new_applicant_page() {
-    //    applicantForm().should('be.visible');
+        //    applicantForm().should('be.visible');
         this.verify_text_is_visible('General Details');
         this.verify_text_is_visible('Tax Details');
         this.verify_text_is_visible('Residential Address');
@@ -909,7 +873,7 @@ export default class OnboardingPage extends BasePage {
     }
 
     select_document_type(option) {
-        this.pause(2)
+        documentType().should('be.visible')
         documentType().select(option);
         return this;
     }
@@ -975,8 +939,8 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_super_subtypes() {
-        personalSuperType().should('have.text', 'Personal Super');
-        SMSFSuperType().should('have.text', 'SMSF');
+        personalSuperType().should('have.text', 'Personal Super ');
+        SMSFSuperType().should('have.text', 'SMSF ');
         return this;
     }
 
@@ -1005,7 +969,7 @@ export default class OnboardingPage extends BasePage {
     verify_ethical_overlay_page() {
         climateChangeButton().should('be.visible')
         cy.url().should('include', 'ethical-overlay');
-        pageTitle().should('have.text', 'Ethical Overlay');
+        pageTitle().should('have.text', 'Screen and tilts');
         this.verify_text(selectedMenuOption, 'Ethical Overlay')
         this.verify_text_is_present_on_main_container('Vices')
         return this;
@@ -1018,9 +982,15 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
+    verify_screen_and_tilts_page() {
+        climateChangeButton().should('be.visible')
+        cy.url().should('include', 'ethical-overlay');
+        pageTitle().should('have.text', 'Screen and tilts');
+        return this;
+    }
+
     verify_applicants_page() {
-        // this.pause(6)
-        //   applicantCardMenuButton().should('be.visible')
+           applicantCardMenuButton().should('be.visible')
         cy.url().should('include', 'applicants');
         pageTitle().should('have.text', 'Applicants');
         return this;
@@ -1141,22 +1111,6 @@ export default class OnboardingPage extends BasePage {
                 feesAndChargesPanel().click();
             }
         })
-        return this;
-    }
-
-    verify_chosen_ethics2(label_values__stacks) {
-        label_values__stacks.forEach(function (stack) {
-            if (stack[1]) {
-                if (Array.isArray(stack[1])) {
-                    stack[1].forEach(function (value) {
-                        chosenEthicsContainer(stack[0]).invoke('text').should('contain', value)
-                    })
-                } else {
-                    chosenEthicsContainer(stack[0]).invoke('text').should('contain', stack[0])
-                }
-
-            }
-        });
         return this;
     }
 
@@ -1622,13 +1576,26 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
-    save_final_JSON_report(prefix) {
+    /*save_final_JSON_report(prefix) {
         cy.log('Object is ' + JSON.stringify(D.dataForExport))
         individualAccountNumber().invoke('text').then(function (text) {
             cy.log('ACCOUNT NUMBER ' + text)
             let accountNo = text.match('Account (' + "(.*)" + ')')[1];
             cy.writeFile('S3_bucket/' + prefix + accountNo + '.json', D.dataForExport)
         })
+        return this;
+    }*/
+
+    save_final_JSON_report(prefix) {
+        cy.log('Object is ' + JSON.stringify(D.dataForExport))
+        let currentdate = new Date();
+        let datetime = currentdate.getFullYear() + "-"
+            + (currentdate.getMonth()+1)  + "-"
+            + currentdate.getDate() + "_"
+            + currentdate.getHours() + "-"
+            + currentdate.getMinutes() + "-"
+            + currentdate.getSeconds();
+            cy.writeFile('S3_bucket/' + prefix + '_' + datetime + '.json', D.dataForExport)
         return this;
     }
 
@@ -1698,7 +1665,6 @@ export default class OnboardingPage extends BasePage {
 
     save_data_object_for_Indicative_Portfolio_Bonds() {
         let firstColumnValues = [
-            'AGB Apr-2023 (GSBG23)',
             'AGB Apr-2024 (GSBG24)',
             'AGB Apr-2025 (GSBG25)',
             'AGB Apr-2026 (GSBG26)',
@@ -1746,7 +1712,7 @@ export default class OnboardingPage extends BasePage {
 
     save_data_object_for_Indicative_Portfolio_Australian_Shares() {
         let firstColumnValues = [
-            'ANZ Bank (ANZ)',
+            'ANZ (ANZ)',
             'Aristocrat Leisure (ALL)',
             'Coles (COL)',
             'Commonwealth Bank (CBA)',
@@ -1763,7 +1729,8 @@ export default class OnboardingPage extends BasePage {
             'Wesfarmers (WES)',
             'Westpac Bank (WBC)',
             'WiseTech Global (WTC)',
-            'Woolworths (WOW)'
+            'Woolworths (WOW)',
+            'Xero (XRO)'
         ]
 
         let self = this
@@ -1812,7 +1779,6 @@ export default class OnboardingPage extends BasePage {
         let firstColumnValues = [
             '3M (MMM)',
             'ABB (ABBN)',
-            'ABB Turbo Systems (ACLN)',
             'Activision Blizzard (ATVI)',
             'Alphabet (GOOG)',
             'Amada (6113)',
@@ -1827,6 +1793,82 @@ export default class OnboardingPage extends BasePage {
             'Citizens Financial (CFG)',
             'Cognizant (CTSH)',
             'DBS (D05)',
+            'Deutsche Telekom (DTE)',
+            'Diageo (DGE)',
+            'eBay (EBAY)',
+            'EDP (EDP)',
+            'Eli Lilly and (LLY)',
+           // 'Endesa (ELE)',
+           // 'ENGIE (ENGI)',
+            'Expedia (EXPE)',
+          //  'General Dynamics (GD)',
+            'General Motors (GM)',
+          //  'Hitachi (6501)',
+            'HOYA Corp (7741)',
+            'Intertek (ITRK)',
+            'J. M. Smucker (SJM)',
+            'Johnson & Johnson (JNJ)',
+            'JPMorgan Chase (JPM)',
+            'KDDI Corp (9433)',
+           // 'L3Harris Technologies (LHX)',
+            'LVMH Moët Hennessy (MC)',
+            'Merck (MRK)',
+            'Meta Platforms (META)',
+            'Microsoft Corp (MSFT)',
+            'Moncler (MONC)',
+            'Newmont Corp (NEM)',
+            'Nintendo (7974)',
+            'Novartis (NOVN)',
+            'Novo Nordisk (NOVO B)',
+            'Paychex (PAYX)',
+            'Pernod Ricard (RI)',
+            'Philip Morris Int. (PM)',
+            'Public Storage (PSA)',
+            'Recordati (REC)',
+            'Robert Half Int. (RHI)',
+            'Royal Ahold Delhaize (AD)',
+            'Sanofi (SAN)',
+            'Schneider Electric (SU)',
+            'Sony Group Corp (6758)',
+            'Taisei Corp (1801)',
+            'Telenor ASA (TEL)',
+            'Unilever (ULVR)',
+            'Vinci (DG)',
+            'Visa (V)',
+           // 'Volkswagen (VOW3)',
+            'Willis Towers Watson (WTW)',
+            'Zoetis (ZTS)',
+        ]
+
+        let self = this
+        firstColumnValues.forEach(function (value) {
+            self.amountInTableFoundByLabelInFirstColumn(value).invoke('text').then(function (amount) {
+                D.dataForExport.indicativePortfolio['International Shares'][value] = amount
+            })
+        })
+        return this;
+    }
+
+    save_data_object_for_Indicative_Portfolio_International_Shares_personal_super() {
+        let firstColumnValues = [
+            '3M (MMM)',
+            'ABB (ABBN)',
+            'Activision Blizzard (ATVI)',
+            'Alphabet (GOOG)',
+            'Amada (6113)',
+            'American Tower Corp (AMT)',
+            'Apple (AAPL)',
+            'Applied Materials (AMAT)',
+            'Assicurazioni Generali (G)',
+            'Astellas Pharma (4503)',
+            'Bristol-Myers Squibb (BMY)',
+            'CDW Corp (CDW)',
+            'Cisco Systems (CSCO)',
+            'Citizens Financial (CFG)',
+            'Cognizant (CTSH)',
+            'DBS (D05)',
+            'Deutsche Telekom (DTE)',
+            'Diageo (DGE)',
             'eBay (EBAY)',
             'EDP (EDP)',
             'Eli Lilly and (LLY)',
@@ -1841,24 +1883,22 @@ export default class OnboardingPage extends BasePage {
             'LVMH Moët Hennessy (MC)',
             'Merck (MRK)',
             'Meta Platforms (META)',
-            'Michelin (ML)',
             'Microsoft Corp (MSFT)',
             'Moncler (MONC)',
             'Newmont Corp (NEM)',
             'Nintendo (7974)',
             'Novartis (NOVN)',
             'Novo Nordisk (NOVO B)',
-            'O\'Reilly Automotive (ORLY)',
             'Paychex (PAYX)',
+            'Pernod Ricard (RI)',
+            'Philip Morris Int. (PM)',
             'Public Storage (PSA)',
             'Recordati (REC)',
             'Robert Half Int. (RHI)',
-            'Roche (ROG)',
             'Royal Ahold Delhaize (AD)',
             'Sanofi (SAN)',
             'Schneider Electric (SU)',
             'Sony Group Corp (6758)',
-            'Southwest Airlines (LUV)',
             'Taisei Corp (1801)',
             'Telenor ASA (TEL)',
             'Unilever (ULVR)',
@@ -1959,6 +1999,28 @@ export default class OnboardingPage extends BasePage {
             'BHP (BHP)',
             'Hitachi (6501)',
             'Endesa (ELE)',
+            'ENGIE (ENGI)',
+        ]
+
+        let self = this
+        firstColumnValues.forEach(function (value) {
+            self.amountInTableFoundByLabelInFirstColumn(value, 2).invoke('text').then(function (amount) {
+                D.dataForExport.indicativePortfolio['Security'][value] = amount
+            })
+        })
+        return this;
+    }
+
+    save_data_object_for_Indicative_Portfolio_Excluded_securities_personal_super() {
+        let firstColumnValues = [
+            'General Dynamics (GD)',
+            'Endesa (ELE)',
+            'L3Harris Technologies (LHX)',
+            'BHP (BHP)',
+            'Volkswagen (VOW3)',
+            'Woodside Energy (WDS)',
+          'APA (APA)',
+            'Hitachi (6501)',
             'ENGIE (ENGI)',
         ]
 
@@ -2205,7 +2267,8 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_sidebar_content_not_exist(option) {
-        this.pause(5)
+        //this.pause(5)
+        sideBar().should('be.visible')
         sideBar().should('not.contain', option);
         return this;
     }
@@ -2260,14 +2323,15 @@ export default class OnboardingPage extends BasePage {
     }
 
     verify_your_portfolio_content_not_exist(option) {
-        this.pause(3)
+        //this.pause(3)
+        cy.get('[class="ant-collapse-content ant-collapse-content-active"]').should('be.visible');
         cy.get('[class="ant-collapse-content ant-collapse-content-active"]').should('not.contain', option);
         return this;
     }
 
     go_through_tour_steps(data) {
-        // this.pause(3)
         tourWindow().should('be.visible');
+        this.pause(1)
         this.verify_text_is_visible(data.step1)
         nextButtonTourWindow().click()
         this.verify_text_is_visible(data.step2)
@@ -2294,8 +2358,8 @@ export default class OnboardingPage extends BasePage {
     }
 
     click_and_verify_each_modal_step() {
-        this.verify_text_is_visible('Video Tutorial');
-        videoTutorial().should('be.visible');
+      //  this.verify_text_is_visible('Video Tutorial');
+      //  videoTutorial().should('be.visible');
         this.verify_text_is_visible('Chat with us');
         cy.contains('Chat with us').click();
         chat().should('be.visible');

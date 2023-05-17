@@ -57,7 +57,7 @@ context('Log in to the Nucleus Wealth portal, create a Joint Account and complet
         ui.onboarding.answerAllQuestionsWithSameOption(13, 2)
             .enter_financial_info(D.financialInfo)
             .click_Save_and_Continue_button()
-            .verify_ethical_overlay_page()
+            .verify_screen_and_tilts_page()
     })
 
     it('5. Complete Ethical Overlay', function () {
@@ -131,7 +131,7 @@ context('Log in to the Nucleus Wealth portal, create a Joint Account and complet
             'Statement of Advice',
             'Praemium SMA PDS and Investment Guide extract'
         ])
-            .verify_alert_msg_final_review_page()
+            .verify_alert_msg_final_review_page(C.alertMsgReviewPage)
             .redirect_to_applicants_page()
             .verify_applicants_page()
     });

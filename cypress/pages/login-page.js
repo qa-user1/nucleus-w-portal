@@ -118,7 +118,7 @@ export default class LoginPage extends BasePage {
     }
 
     redirect_user_to_the_create_a_new_account_page() {
-        mainContainerHome().should('be.visible');
+                mainContainerHome().should('be.visible');
                 createNewAccount().invoke('removeAttr', 'target').click({force:true})
         return this;
     }
@@ -193,8 +193,8 @@ confirmAccount().click()
         return this;
     }
 
-    verify_error_message() {
-        loginErrorMsg().should('have.text', 'Incorrect username or password.');
+    verify_error_message(errorMsg) {
+        loginErrorMsg().should('have.text', errorMsg);
         return this;
     }
 
