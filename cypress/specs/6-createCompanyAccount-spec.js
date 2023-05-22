@@ -29,7 +29,7 @@ context('Company Account', () => {
             .verify_non_super_subtypes()
             .select_company_non_super_subtype()
             .click_create_investment_account()
-            .go_through_tour_steps(C.stepMessages)
+            .go_through_tour_steps(C.investmentStepMessages)
             .verify_investment_choice_page()
         cy.saveLocalStorage();
 
@@ -44,6 +44,10 @@ context('Company Account', () => {
     })
 
     it('4. Complete Build Your Portfolio', function () {
+        ui.onboarding.go_through_tour_steps(C.buildYourPortfolioStepMsgs)
+        ui.onboarding.expand_card(0)
+            .expand_card(1)
+            .expand_card(2) 
         D.buildYouPortfolioFields.coreInternational = '100'
         ui.onboarding.enter_investment_value_and_core_international_value(D.buildYouPortfolioFields)
     })
