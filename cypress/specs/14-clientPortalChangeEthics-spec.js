@@ -5,6 +5,8 @@ const C = require('../fixtures/constants');
 
 context('Client Portal - Change Ethics/Exclusions', () => {
 
+//not available anymore on website
+
     let accountNo;
 
     beforeEach(function () {
@@ -24,11 +26,7 @@ context('Client Portal - Change Ethics/Exclusions', () => {
         )
     })
 
-    before(function () {
-        // cy.clearAllLocalStorage()
-        // cy.clearAllCookies()
-        //  cy.clearAllSessionStorage()*/
-
+    /*before(function () {
         ui.login.open_base_url()
             .verify_login_menu(D.user)
             .enter_credentials_and_click_Sign_In(D.user.username, D.user.password)
@@ -40,12 +38,15 @@ context('Client Portal - Change Ethics/Exclusions', () => {
             .go_through_tour_steps(C.investmentStepMessages)
         cy.saveLocalStorage()
         ui.onboarding.click_self_directed_button()
-            .select_all_checkboxes(6)
+            .select_all_checkboxes(5)
             .click_Save_and_Continue_button()
+            .go_through_tour_steps(C.buildYourPortfolioStepMsgs)
+        ui.onboarding.expand_card(0)
+            .expand_card(1)
+            .expand_card(2)
             .enter_values_on_BYP_input_fields(D.buildYouPortfolioFields)
             .clear_values_on_BYP_input_fields()
             .enter_tactical_growth_and_core_international_values(D.buildYouPortfolioFields)
-            .click_Save_and_Continue_button()
             .click_climate_change_button()
             .select_checkbox_based_on_label('No Fossil Fuels (Worst Offenders)')
             .select_checkbox_based_on_label('No Fossil Fuels (Any)')
@@ -54,15 +55,16 @@ context('Client Portal - Change Ethics/Exclusions', () => {
             .click_Save_and_Continue_button()
             .click_Save_and_Continue_button()
 
+
         ui.onboarding.click_sidebar_option('Investment Choice')
             .click_limited_advice_button()
-            .go_through_tour_steps(C.stepMessages)
+            .go_through_tour_steps(C.investmentStepMessages)
             .select_all_checkboxes(6)
             .click_Save_and_Continue_button()
             .answerAllQuestionsWithSameOption(13, 2)
         ui.onboarding.enter_financial_info(D.financialInfo)
             .click_Save_and_Continue_button()
-            .verify_ethical_overlay_page()
+            .verify_screen_and_tilts_page()
             .click_Save_and_Continue_button()
             .verify_review_page()
             .click_Save_and_Continue_button()
@@ -82,15 +84,22 @@ context('Client Portal - Change Ethics/Exclusions', () => {
             .click_Agree_checkbox()
             .click_Submit_Application_button()
             .verify_success_page()
-        cy.get('[data-test="onboarding-rightHeader-title"]').invoke('text').then(function (text) {
+        /!*cy.get('[data-test="onboarding-rightHeader-title"]').invoke('text').then(function (text) {
             cy.log('ACCOUNT NUMBER ' + text)
             accountNo = text.match('Account (' + "(.*)" + ')')[1];
-            cy.saveLocalStorage()
-        })
+            cy.saveLocalStorage()*!/
+        cy.url().then(function (url) {
+            let regex = /onboarding\/(\d+)/;
+            let match = url.match(regex);
+            if (match && match.length > 1) {
+                accountNo = match[1];
+                cy.log('ACCOUNT NUMBER ' + accountNo);
+                cy.saveLocalStorage();
+            }
+        });
+    })*/
 
-    })
-
-    it('1. Direct user to “Your Account(s)” page', function () {
+    xit('1. Direct user to “Your Account(s)” page', function () {
         ui.login.open_base_url()
             .verify_login_menu(D.user)
             .enter_credentials_and_click_Sign_In(D.user.username, D.user.password)
@@ -99,19 +108,19 @@ context('Client Portal - Change Ethics/Exclusions', () => {
     })
 
 
-    it('2. Direct user to “Ethical Overlay”', function () {
+    xit('2. Direct user to “Ethical Overlay”', function () {
         ui.clientPortal.click_ethics_section(accountNo)
         ui.onboarding.verify_ethical_overlay_page2()
     })
 
 
-    it('3. Complete Ethical Overlay', function () {
+    xit('3. Complete Ethical Overlay', function () {
         ui.clientPortal.check_or_uncheck_nuclear_power()
         ui.onboarding.click_Save_and_Continue_button()
     })
 
 
-    it('4. Check Final Review', function () {
+    xit('4. Check Final Review', function () {
         ui.clientPortal.verify_final_review_page()
             .expand_current_ethics()
             .expand_new_ethics()
@@ -125,7 +134,7 @@ context('Client Portal - Change Ethics/Exclusions', () => {
     })
 
 
-    it('5. Submit Change', function () {
+    xit('5. Submit Change', function () {
         if (Cypress.env('cypressRunnerLocal') === true) {
             ui.app.clear_gmail_inbox()
         }

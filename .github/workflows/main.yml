@@ -71,7 +71,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test17-1 ]
+    needs: [ Run-Cypress-Test13 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -96,7 +96,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test17-1 ]
+    needs: [ Run-Cypress-Test13]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -121,7 +121,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test17-1 ]
+    needs: [ Run-Cypress-Test13 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -171,7 +171,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test13 ]
+    needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -196,7 +196,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test14 ]
+   # needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -292,7 +292,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test14 ]
+    needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -316,7 +316,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test14 ]
+    needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -335,36 +335,13 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
 
-  Run-Cypress-Test14:
-    name: Cypress Test 14
-    if: success() || failure()
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-    needs: [ Run-Cypress-Test1 ]
-    container:
-      image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
-      options: --user 1001
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-      - run: npm i
-      - run: npm run e2e-test14
-      - name: Deploy report to temp-reports branch
-        if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        with:
-          keepFiles: true
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: report
 
   Run-Cypress-Test15:
     name: Cypress Test 15
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test1 ]
+   # needs: [ Run-Cypress-Test1 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -436,7 +413,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test13 ]
+    needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -462,7 +439,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test17-1 ]
+    needs: [ Run-Cypress-Test13]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -488,7 +465,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-   # needs: [ Run-Cypress-Test1 ]
+    needs: [ Run-Cypress-Test1 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -538,7 +515,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test17-1 ]
+    needs: [ Run-Cypress-Test13 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -562,7 +539,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test13 ]
+    needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -586,7 +563,7 @@ jobs:
     if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    needs: [ Run-Cypress-Test13 ]
+    needs: [ Run-Cypress-Test1 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
@@ -605,12 +582,11 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
 
-
   merge-and-deploy-final-report:
     runs-on: ubuntu-latest
     timeout-minutes: 250
     continue-on-error: true
-    needs: [Run-Cypress-Test1, Run-Cypress-Test2, Run-Cypress-Test3, Run-Cypress-Test4, Run-Cypress-Test5, Run-Cypress-Test6, Run-Cypress-Test8, Run-Cypress-Test9, Run-Cypress-Test10, Run-Cypress-Test11, Run-Cypress-Test12, Run-Cypress-Test13, Run-Cypress-Test14, Run-Cypress-Test15, Run-Cypress-Test16, Run-Cypress-Test17-0, Run-Cypress-Test17-1, Run-Cypress-Test17-2, Run-Cypress-Test18, Run-Cypress-Test19, Run-Cypress-Test20, Run-Cypress-Test21, Run-Cypress-Test22]
+    needs: [Run-Cypress-Test1, Run-Cypress-Test2, Run-Cypress-Test3, Run-Cypress-Test4, Run-Cypress-Test5, Run-Cypress-Test6, Run-Cypress-Test8, Run-Cypress-Test9, Run-Cypress-Test10, Run-Cypress-Test11, Run-Cypress-Test12, Run-Cypress-Test13, Run-Cypress-Test15, Run-Cypress-Test16, Run-Cypress-Test17-0, Run-Cypress-Test17-1, Run-Cypress-Test17-2, Run-Cypress-Test18, Run-Cypress-Test19, Run-Cypress-Test20, Run-Cypress-Test21, Run-Cypress-Test22]
     if: always()
     strategy:
       fail-fast: false
@@ -660,9 +636,6 @@ jobs:
           fi
           if [ -d "allure-results-13" ]; then
           mv allure-results-13/* allure-results
-          fi
-          if [ -d "allure-results-14" ]; then
-          mv allure-results-14/* allure-results
           fi
           if [ -d "allure-results-15" ]; then
           mv allure-results-15/* allure-results
@@ -718,7 +691,7 @@ jobs:
     name: Notify on Slack
     runs-on: ubuntu-latest
     if: always()
-    needs: [Run-Cypress-Test1, Run-Cypress-Test2, Run-Cypress-Test3, Run-Cypress-Test4, Run-Cypress-Test5, Run-Cypress-Test6, Run-Cypress-Test8, Run-Cypress-Test9, Run-Cypress-Test10, Run-Cypress-Test11, Run-Cypress-Test12, Run-Cypress-Test13, Run-Cypress-Test14, Run-Cypress-Test15, Run-Cypress-Test16, Run-Cypress-Test17-0, Run-Cypress-Test17-1, Run-Cypress-Test17-2, Run-Cypress-Test18, Run-Cypress-Test19, Run-Cypress-Test20, Run-Cypress-Test21, Run-Cypress-Test22]
+    needs: [Run-Cypress-Test1, Run-Cypress-Test2, Run-Cypress-Test3, Run-Cypress-Test4, Run-Cypress-Test5, Run-Cypress-Test6, Run-Cypress-Test8, Run-Cypress-Test9, Run-Cypress-Test10, Run-Cypress-Test11, Run-Cypress-Test12, Run-Cypress-Test13, Run-Cypress-Test15, Run-Cypress-Test16, Run-Cypress-Test17-0, Run-Cypress-Test17-1, Run-Cypress-Test17-2, Run-Cypress-Test18, Run-Cypress-Test19, Run-Cypress-Test20, Run-Cypress-Test21, Run-Cypress-Test22]
 
     steps:
       - uses: abinoda/slack-action@master

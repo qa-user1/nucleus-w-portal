@@ -6,7 +6,7 @@ const d = D.scenarios[0]
 context('Client Portal - Change Portfolio', () => {
     let accountNo;
 
-    beforeEach(function () {
+    /*beforeEach(function () {
         Cypress.Cookies.debug(true)
         cy.preserveCookieOnce(
             'secure',
@@ -21,13 +21,9 @@ context('Client Portal - Change Portfolio', () => {
             '__Secure-next-auth.session-token',
             '__Host-next-auth.csrf-token',
         )
-    })
+    })*/
 
     before(function () {
-      /*  cy.clearAllLocalStorage()
-        cy.clearAllCookies()
-        cy.clearAllSessionStorage()*/
-
         ui.login.open_base_url()
             .verify_login_menu(D.user)
             .enter_credentials_and_click_Sign_In(D.user.username, D.user.password)
@@ -39,12 +35,15 @@ context('Client Portal - Change Portfolio', () => {
             .go_through_tour_steps(C.investmentStepMessages)
         cy.saveLocalStorage()
         ui.onboarding.click_self_directed_button()
-            .select_all_checkboxes(6)
+            .select_all_checkboxes(5)
             .click_Save_and_Continue_button()
+            .go_through_tour_steps(C.buildYourPortfolioStepMsgs)
+        ui.onboarding.expand_card(0)
+            .expand_card(1)
+            .expand_card(2)
             .enter_values_on_BYP_input_fields(D.buildYouPortfolioFields)
             .clear_values_on_BYP_input_fields()
             .enter_tactical_growth_and_core_international_values(D.buildYouPortfolioFields)
-            .click_Save_and_Continue_button()
             .click_climate_change_button()
             .select_checkbox_based_on_label('No Fossil Fuels (Worst Offenders)')
             .select_checkbox_based_on_label('No Fossil Fuels (Any)')
@@ -53,15 +52,16 @@ context('Client Portal - Change Portfolio', () => {
             .click_Save_and_Continue_button()
             .click_Save_and_Continue_button()
 
+
         ui.onboarding.click_sidebar_option('Investment Choice')
             .click_limited_advice_button()
-            .go_through_tour_steps(C.stepMessages)
+            .go_through_tour_steps(C.investmentStepMessages)
             .select_all_checkboxes(6)
             .click_Save_and_Continue_button()
             .answerAllQuestionsWithSameOption(13, 2)
         ui.onboarding.enter_financial_info(D.financialInfo)
             .click_Save_and_Continue_button()
-            .verify_ethical_overlay_page()
+            .verify_screen_and_tilts_page()
             .click_Save_and_Continue_button()
             .verify_review_page()
             .click_Save_and_Continue_button()
@@ -81,11 +81,19 @@ context('Client Portal - Change Portfolio', () => {
             .click_Agree_checkbox()
             .click_Submit_Application_button()
             .verify_success_page()
-        cy.get('[data-test="onboarding-rightHeader-title"]').invoke('text').then(function (text) {
+        /*cy.get('[data-test="onboarding-rightHeader-title"]').invoke('text').then(function (text) {
             cy.log('ACCOUNT NUMBER ' + text)
             accountNo = text.match('Account (' + "(.*)" + ')')[1];
-            cy.saveLocalStorage()
-        })
+            cy.saveLocalStorage()*/
+        cy.url().then(function (url) {
+            let regex = /onboarding\/(\d+)/;
+            let match = url.match(regex);
+            if (match && match.length > 1) {
+                accountNo = match[1];
+                cy.log('ACCOUNT NUMBER ' + accountNo);
+                cy.saveLocalStorage();
+            }
+        });
     })
 
     it('1. Direct user to “Your Account(s)” page', function () {
@@ -101,7 +109,6 @@ context('Client Portal - Change Portfolio', () => {
 
     it('2. Direct user to “Investment Choice”', function () {
         ui.clientPortal.click_change_portfolio_button(accountNo)
-        //  ui.onboarding.go_through_tour_steps(C.stepMessages)
         ui.clientPortal.verify_investment_choice_link()
 
     })
@@ -116,8 +123,13 @@ context('Client Portal - Change Portfolio', () => {
 
 
     it('4. Complete Build Your Portfolio', function () {
+        ui.onboarding.go_through_tour_steps(C.buildYourPortfolioStepMsgs)
+       .expand_card(0)
+            .expand_card(1)
+            .expand_card(2)
         ui.clientPortal.verify_build_your_portfolio_link()
             .complete_build_your_portfolio()
+        ui.clientPortal.check_or_uncheck_nuclear_power()
         ui.onboarding.click_Save_and_Continue_button()
         ui.clientPortal.verify_final_review_link()
     })
@@ -125,6 +137,9 @@ context('Client Portal - Change Portfolio', () => {
 
     it('5. Check Final Review', function () {
         ui.clientPortal.verify_final_review_page()
+            .expand_current_ethics()
+            .expand_new_ethics()
+            .verify_number_of_selected_options_is_different_in_Current_and_New_Ethics()
             .verify_download_button_for_documents(2)
         ui.onboarding.verify_Documents_available_for_download([
             'Record of Engagement',
