@@ -1,7 +1,7 @@
 const ui = require('../pages/ui-spec');
 const D = require('../fixtures/data');
 const C = require('../fixtures/constants');
-const d = D.scenarios[0]
+
 
 context('Client Portal - Change Portfolio', () => {
     let accountNo;
@@ -50,7 +50,7 @@ context('Client Portal - Change Portfolio', () => {
             .click_war_button()
             .select_checkbox_based_on_label('No Arms (Any)')
             .click_Save_and_Continue_button()
-            .click_Save_and_Continue_button()
+           // .click_Save_and_Continue_button()
 
 
         ui.onboarding.click_sidebar_option('Investment Choice')
@@ -70,7 +70,7 @@ context('Client Portal - Change Portfolio', () => {
             .click_submit_applicant_button()
             .enter_values_at_create_new_applicant_input_fields(D.applicantsProfileFields)
             .click_submit_applicant_button()
-            .verify_your_identity()
+            //.verify_your_identity()
             .upload_and_submit_document_for_verification('Upload an ID document', D.documentType.telephoneBill)
             .upload_and_submit_document_for_verification('Upload an ID document', D.documentType.waterBill)
             .click_Save_and_Continue_button()
@@ -81,10 +81,7 @@ context('Client Portal - Change Portfolio', () => {
             .click_Agree_checkbox()
             .click_Submit_Application_button()
             .verify_success_page()
-        /*cy.get('[data-test="onboarding-rightHeader-title"]').invoke('text').then(function (text) {
-            cy.log('ACCOUNT NUMBER ' + text)
-            accountNo = text.match('Account (' + "(.*)" + ')')[1];
-            cy.saveLocalStorage()*/
+
         cy.url().then(function (url) {
             let regex = /onboarding\/(\d+)/;
             let match = url.match(regex);
@@ -125,8 +122,8 @@ context('Client Portal - Change Portfolio', () => {
     it('4. Complete Build Your Portfolio', function () {
         ui.onboarding.go_through_tour_steps(C.buildYourPortfolioStepMsgs)
        .expand_card(0)
-            .expand_card(1)
-            .expand_card(2)
+         //   .expand_card(1)
+         //   .expand_card(2)
         ui.clientPortal.verify_build_your_portfolio_link()
             .complete_build_your_portfolio()
         ui.clientPortal.check_or_uncheck_nuclear_power()
