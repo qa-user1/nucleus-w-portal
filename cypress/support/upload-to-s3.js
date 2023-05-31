@@ -4,8 +4,8 @@ const AWS = require('aws-sdk');
 
 const {  BUCKET_NAME, AWS_ACCESS_ID, AWS_SECRET_KEY } = process.env;
 
-
 function uploadToS3(file, name, type) {
+   // const {  BUCKET_NAME, AWS_ACCESS_ID, AWS_SECRET_KEY } = process.env;
     console.log(process.env.BUCKET_NAME);
     const s3bucket = new AWS.S3({
         accessKeyId: AWS_ACCESS_ID,
