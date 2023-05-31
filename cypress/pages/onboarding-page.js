@@ -494,7 +494,9 @@ export default class OnboardingPage extends BasePage {
             employerBusinessInputField().type(data.employerBusiness).type('{enter}');
         }
         if (type === 'Joint-IB' || type === 'Individual-IB') {
+            employmentStatusAnnualNetIncomeInputField().clear()
             employmentStatusAnnualNetIncomeInputField().type(data.annualNetIncome)
+            employmentStatusNetWorthInputField().clear()
             employmentStatusNetWorthInputField().type(data.netWorth)
         }
 
@@ -534,6 +536,7 @@ export default class OnboardingPage extends BasePage {
     verify_your_identity() {
         //this.pause(7)
         // identity().should('have.text', "Driver's licence");
+        cy.wait(8000)
         cy.contains('h1', 'Verify your identity');
         return this;
     }
