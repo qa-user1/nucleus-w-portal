@@ -157,6 +157,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     titleDropdownOptions = option => cy.get('.rc-virtual-list-holder-inner').contains(option),
     tiltsDropdownOptions = option => cy.get('[class="ant-select-dropdown css-86j49d ant-select-dropdown-placement-bottomLeft "]').contains(option),
     nameInputField = e => cy.get('#givenNames'),
+    middleNameInputField = e => cy.get('#middleNames'),
     surnameInputField = e => cy.get('#surname'),
     emailInputField = e => cy.get('#email'),
     mobileInputField = e => cy.get('#phone'),
@@ -185,8 +186,11 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     employmentStatusAnnualNetIncomeInputField = e => cy.get('[id="theForm_person_annual_net_income"]'),
     employmentStatusNetWorthInputField = e => cy.get('[id="theForm_person_net_worth"]'),
     citizenshipInputField = e => cy.get('#theForm_citizenship'),
+    maritalStatus = e => cy.get('#theForm_marital_status'),
+    countryOfBirth = e => cy.get('#theForm_country_of_birth'),
     taxInputField = e => cy.get('[data-test="applicants-tfn-input"]'),
     genderInputField = e => cy.get('[data-test="applicants-gender-input"] > .ant-select-selector'),
+    numberOfDependentsInputField = e => cy.get('#theForm_num_dependents'),
     residentialAddressInputField = e => cy.get('[data-test="applicants-residentialAddress-input"]'),
     residentialAddressTypeaheadOption = e => cy.get('[data-test="applicants-addressSuggestion-0-input"]'),
     knowledgeLevel = e => cy.get('#theForm_investmentExperience_0_knowledgeLevel'),
@@ -222,7 +226,13 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     transferAmountInputField = e => cy.get('[data-test="superFundEntry-transferAmount0-input"]'),
     memberNumberInputField = e => cy.get('[data-test="superFundEntry-memberNumber0-input"]'),
     personalSuperAccountTypeInputField = e => cy.get('[data-test="superDetails-personalSuperAccountType-input"]'),
+    platformAdministration = e => cy.get('[data-test="superFundEntry-platformAdministration0-input"]'),
+    investmentManagement = e => cy.get('[data-test="superFundEntry-investmentManagement0-input"]'),
+    ETFfees = e => cy.get('[data-test="superFundEntry-eTFFeesOther0-input"]'),
+    performance = e => cy.get('[data-test="superFundEntry-Performance0-input"]'),
+    advice = e => cy.get('[data-test="superFundEntry-Advice0-input"]'),
     accumulationChoice = e => cy.get('[data-test="superDetails-personalSuperAccountType-input-accumulation"]'),
+    manuallyEnterFeesButton = e => cy.get('[data-test="superFundEntry-manuallyEnterFees0-btn"]'),
     ttrChoice = e => cy.get('[data-test="superDetails-personalSuperAccountType-input-ttr"]'),
     pensionChoice = e => cy.get('[data-test="superDetails-personalSuperAccountType-input-pension"]'),
     questionResponses = e => cy.get('[data-test="review-questionResponses-question"]'),
@@ -392,6 +402,19 @@ export default class OnboardingPage extends BasePage {
         fundNameInputField().type(fundEntryValues.fundName).type('{enter}');
         transferAmountInputField().clear();
         transferAmountInputField().type(fundEntryValues.transferAmount);
+        if (fundEntryValues.platformAdministration !== '') {
+            manuallyEnterFeesButton().click();
+            platformAdministration().clear();
+            platformAdministration().type(fundEntryValues.platformAdministration);
+            investmentManagement().clear();
+            investmentManagement().type(fundEntryValues.investmentManagement);
+            ETFfees().clear();
+            ETFfees().type(fundEntryValues.ETFfees);
+            performance().clear();
+            performance().type(fundEntryValues.Performance);
+            advice().clear();
+            advice().type(fundEntryValues.advice)
+        }
 
         if (fundEntryValues.fundName === 'Other' || fundEntryValues.fundName === 'SMSF') {
             customFundNameInputField().type(fundEntryValues.customFundName)
@@ -498,6 +521,9 @@ export default class OnboardingPage extends BasePage {
         nameInputField().type(data.nameInput)
         nameInputField().should('have.value', data.nameInput)
 
+        middleNameInputField().clear();
+        middleNameInputField().type(data.middleName)
+
         surnameInputField().type(data.surnameInput);
         surnameInputField().should('have.value', data.surnameInput)
 
@@ -510,6 +536,9 @@ export default class OnboardingPage extends BasePage {
         genderInputField().click();
         genderInputField().type(data.genderInput).type('{enter}');
 
+        numberOfDependentsInputField().clear();
+        numberOfDependentsInputField().type(data.numberOfDependents)
+
         dateInputField2().click();
         //dateField().click();
         // this.enterValue(dateInputField, data.dateOfBirth)
@@ -517,6 +546,9 @@ export default class OnboardingPage extends BasePage {
 
         citizenshipInputField().click({force: true})
         citizenshipInputField().type(data.citizenshipInput).type('{enter}');
+
+        countryOfBirth().click({force:true})
+        countryOfBirth().type(data.countryOfBirth).type('{enter}')
 
         employmentInputField().click();
         dropdownOption(data.employmentInput).click()
@@ -641,7 +673,7 @@ export default class OnboardingPage extends BasePage {
     }
 
     select_investment_choice(option, type) {
-        if (option === 'Self Directed' && type === 'Individual-IB' || type === 'Joint-IB'  ) {
+        if (option === 'Self Directed' && type === 'Individual-IB' || type === 'Joint-IB') {
             this.click_self_directed_button()
                 .select_all_checkboxes(6)
         } else if (type === 'Individual-IB' && option === 'Limited Advice') {
@@ -757,11 +789,11 @@ export default class OnboardingPage extends BasePage {
             cy.get('[title="75"]').click()
         }
 */
-        if (data.stocksAustralianLeaders !== '') {
+        if (type === 'Individual-IB' && data.stocksAustralianLeaders !== '') {
             stocksAustralianLeaders().click()
             dropdownOption(data.stocksAustralianLeaders).click()
         }
-        if (data.stocksGlobalLeaders !== '') {
+        if (type === 'Individual-IB' && data.stocksGlobalLeaders !== '') {
             stocksGlobalLeaders().click()
             dropdownOption(data.stocksGlobalLeaders).click();
         }
@@ -917,6 +949,7 @@ export default class OnboardingPage extends BasePage {
     climateChange = 'Climate Change';
 
     select_tilts_option(data) {
+        //   if (data.investmentChoice === 'Full Advice'){
         if (data.qualityStocks !== '') {
             qualityStocksTypeOfTilt().click()
             tiltsDropdownOptions(data.qualityStocks).click();
@@ -966,7 +999,7 @@ export default class OnboardingPage extends BasePage {
             tiltsDropdownOptions(data.cybersecurity).click();
         }
 
-         consumption().click()
+        consumption().click()
         if (data.videoGaming !== '') {
             videoGamingTypeOfTilt().click()
             tiltsDropdownOptions(data.videoGaming).click();
@@ -984,7 +1017,7 @@ export default class OnboardingPage extends BasePage {
             tiltsDropdownOptions(data.logistics).click();
         }
 
-         commodities().click()
+        commodities().click()
         if (data.goldStocks !== '') {
             goldStocksTypeOfTilt().click();
             tiltsDropdownOptions(data.goldStocks).click();
@@ -997,19 +1030,19 @@ export default class OnboardingPage extends BasePage {
             agribusinessTypeOfTilt().click();
             tiltsDropdownOptions(data.agribusiness).click();
         }
-         military().click()
+        military().click()
         if (data.defenseContractors !== '') {
             defenseContractorsTypeOfTilt().click();
             tiltsDropdownOptions(data.defenseContractors).click();
         }
 
-         gicsSector().click()
+        gicsSector().click()
         if (data.globalConsumerDiscretionary !== '') {
-           globalConsumerDiscretionaryTypeOfTilt().click();
+            globalConsumerDiscretionaryTypeOfTilt().click();
             tiltsDropdownOptions(data.globalConsumerDiscretionary).click();
         }
         if (data.globalConsumerStaples !== '') {
-           globalConsumerStaplesTypeOfTilt().click();
+            globalConsumerStaplesTypeOfTilt().click();
             tiltsDropdownOptions(data.globalConsumerStaples).click();
         }
         if (data.globalCommunicationServices !== '') {
@@ -1033,7 +1066,7 @@ export default class OnboardingPage extends BasePage {
             tiltsDropdownOptions(data.globalHealthCare).click();
         }
         if (data.globalFinancials !== '') {
-           globalFinancialsTypeOfTilt().click();
+            globalFinancialsTypeOfTilt().click();
             tiltsDropdownOptions(data.globalFinancials).click();
         }
         if (data.globalInformationTechnology !== '') {
@@ -1048,6 +1081,8 @@ export default class OnboardingPage extends BasePage {
             globalUtilitiesTypeOfTilt().click();
             tiltsDropdownOptions(data.globalUtilities).click();
         }
+        // }
+
         return this;
     }
 

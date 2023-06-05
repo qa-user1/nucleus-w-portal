@@ -541,8 +541,8 @@ D.scenarios = [
         name: 'Scenario 1',
         username: 'testing@nucleuswealth.com',
         password: 'Testing123!',
-        accountType: "Individual",
-        investmentChoice: "Self Directed",
+        accountType: "Joint",
+        investmentChoice: "Full Advice",
         questionResponse: {
             selectedOptions: [
                 2,
@@ -557,6 +557,7 @@ D.scenarios = [
                 2,
                 2,
                 2,
+2
 
             ],
             investmentTotal: '100000',
@@ -582,10 +583,10 @@ D.scenarios = [
         ],
 
         buildYourPortfolio: {
-            tacticalGrowth: "49",
+            tacticalGrowth: "50",
             coreInternational: "50",
             investmentTotal: "100000",
-            cash: '500',
+            cash: '',
 
             //keep like this if you don't want
             // to include these values
@@ -597,8 +598,8 @@ D.scenarios = [
             governmentBondLadder: '',
 
 
-            stocksAustralianLeaders: '40',
-            stocksGlobalLeaders: '75',
+            stocksAustralianLeaders: '5',
+            stocksGlobalLeaders: '',
 
             //Portfolio Tilts
             //Investment Style Factors
@@ -828,15 +829,18 @@ D.scenarios = [
             inputFields: {
                 titleInput: 'Mr',
                 nameInput: 'Test name',
+                middleName: 'Test',
                 surnameInput: 'Test surname',
                 emailInput: 'email@test.com',
                 mobileInput: '123456',
                 genderInput: 'Female',
+                countryOfBirth: 'Australia',
                 dateOfBirth: '16/04/1990',
                 citizenshipInput: 'Australia',
                 employmentInput: 'Employed',
                 taxInput: '11111111',
                 occupation: 'Analyst',
+                numberOfDependents: '0',
                 employerName: 'Test test',
                 employerAddress: 'Angola',
                 employerBusiness: 'Computer/Information Technology',
@@ -875,7 +879,14 @@ D.scenarios = [
             customFundName: 'test',
             transferAmount: '100000',
             memberNumber: '5',
-            personalSuperAccountType: 'Accumulation'
+            personalSuperAccountType: 'Accumulation',
+
+            //manually enter fees
+            platformAdministration: '20',
+            investmentManagement: '20',
+            ETFfees: ' 20',
+            Performance: '20',
+            advice: '20'
         },
         insurance: {
             lifeCover: '100000',
