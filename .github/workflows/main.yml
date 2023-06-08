@@ -480,22 +480,32 @@ jobs:
 
   Run-Cypress-Test17-0:
     name: Cypress Test 17.0
-    if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    #  needs: [ Run-Cypress-Test11 ]
     container:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
     steps:
+      - name: Get current date
+        id: get-date
+        run: echo "date=$(date +'%u')" >> $GITHUB_OUTPUT
+        shell: bash
+
       - uses: actions/checkout@v2
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: actions/setup-node@v3
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - run: npm i
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test17.0
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -507,9 +517,9 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
 
+
   Run-Cypress-Test17-1:
     name: Cypress Test 17.1
-    if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
     needs: [ Run-Cypress-Test22 ]
@@ -517,14 +527,26 @@ jobs:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
     steps:
+      - name: Get current date
+        id: get-date
+        run: echo "date=$(date +'%u')" >> $GITHUB_OUTPUT
+        shell: bash
+
       - uses: actions/checkout@v2
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: actions/setup-node@v3
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - run: npm i
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test17.1
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -538,7 +560,7 @@ jobs:
 
   Run-Cypress-Test17-2:
     name: Cypress Test 17.2
-    if: success() || failure()
+   # if: success() || failure()
     runs-on: ubuntu-latest
     timeout-minutes: 40
     needs: [ Run-Cypress-Test1 ]
@@ -546,14 +568,27 @@ jobs:
       image: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
       options: --user 1001
     steps:
+      - name: Get current date
+        id: get-date
+        run: echo "date=$(date +'%u')" >> $GITHUB_OUTPUT
+        shell: bash
+
       - uses: actions/checkout@v2
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: actions/setup-node@v3
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - run: npm i
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test17.2
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -564,6 +599,7 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
+
 
   Run-Cypress-Test18:
     name: Cypress Test 18
@@ -680,6 +716,8 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: report
+
+            
 
   Run-Cypress-Test22:
     name: Cypress Test 22
