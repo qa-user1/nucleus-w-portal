@@ -11,7 +11,7 @@ const octokit = new Octokit({
 
 //const owner = 'qa-github1'
 const owner = 'Nucleus-Reports'
-const repo = 'testing-plugin-error'
+const repo = 'nucleus-w-portal'
 const env = 'github-pages'
 const dateAndTime = new Date();
 const currentDayInMonth = new Date().getDate().toLocaleString();
