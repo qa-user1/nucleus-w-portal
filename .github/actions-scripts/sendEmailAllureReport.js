@@ -25,6 +25,7 @@ async function sendEmail() {
 
     let info = await transporter.sendMail({
         from: "protractor.user2@gmail.com",
+        //to: "dev@nucleuswealth.com",
         to: "senderovic.amina@gmail.com",
         subject: "Allure Report - All Tests",
         text: "Please find the Allure report for all tests at the following link: https://nucleus-reports.github.io/report_" + month + '_' + day + '/#suites'

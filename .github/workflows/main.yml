@@ -901,9 +901,9 @@
           id: set_date
           run: echo "NOW=$(date +'%B_%d')" >> $GITHUB_ENV
 
-       #  - uses: abinoda/slack-action@master
-        #   env:
-         #    SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN }}
-         #    NOW: ${{ env.NOW }}
-        #   with:
-       #     args: '{\"channel\":\"${{ secrets.SLACK_PR_CHANNEL_ID }}\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Automated test report* https://nucleus-reports.github.io/report_${{ env.NOW }}  \"}}]}'
+        - uses: abinoda/slack-action@master
+          env:
+             SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN }}
+             NOW: ${{ env.NOW }}
+          with:
+             args: '{\"channel\":\"${{ secrets.SLACK_PR_CHANNEL_ID }}\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Automated test report* https://nucleus-reports.github.io/report_${{ env.NOW }}  \"}}]}'
