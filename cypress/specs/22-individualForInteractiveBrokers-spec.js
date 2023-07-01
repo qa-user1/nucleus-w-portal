@@ -182,11 +182,13 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
         ui.onboarding.answerAllQuestionsWithSameOption(13, 2)
             .enter_financial_info(D.financialInfo)
             .click_Save_and_Continue_button()
-        ui.app.pause(4)
-        ui.onboarding.click_Save_and_Continue_button()
-        ui.app.pause(4)
-        ui.onboarding.click_Save_and_Continue_button()
-        ui.app.pause(4)
+        ui.onboarding.click_sidebar_option('Review')
+
+        /* ui.app.pause(4)
+         ui.onboarding.click_Save_and_Continue_button()
+         ui.app.pause(4)
+         ui.onboarding.click_Save_and_Continue_button()
+         ui.app.pause(4)*/
         ui.onboarding.verify_your_portfolio_content_not_exist('Tactical Growth')
             .click_Save_and_Continue_button()
 
