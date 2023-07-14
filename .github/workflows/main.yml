@@ -71,6 +71,9 @@ jobs:
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -104,6 +107,9 @@ jobs:
           mkdir report/S3_bucket
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -139,6 +145,9 @@ jobs:
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -172,6 +181,9 @@ jobs:
           mkdir report/S3_bucket
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -207,6 +219,9 @@ jobs:
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -241,6 +256,9 @@ jobs:
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -270,6 +288,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test8
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -301,6 +322,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test9
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -330,6 +354,9 @@ jobs:
           timeout_minutes: 15
           max_attempts: 3
           command: npm run e2e-test10
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -361,6 +388,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test11
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -391,6 +421,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test12
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -420,6 +453,9 @@ jobs:
           timeout_minutes: 15
           max_attempts: 3
           command: npm run e2e-test13
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -455,6 +491,9 @@ jobs:
           ACCOUNT_SID: ${{ secrets.ACCOUNT_SID }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -484,6 +523,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test16
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -525,6 +567,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test17.0
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -568,6 +613,9 @@ jobs:
           command: npm run e2e-test17.1
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -610,6 +658,8 @@ jobs:
           command: npm run e2e-test17.2
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -642,6 +692,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test18
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -671,6 +724,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test19
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -702,6 +758,9 @@ jobs:
           max_attempts: 3
           command: npm run e2e-test20
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -731,6 +790,9 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: npm run e2e-test21
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
@@ -770,6 +832,9 @@ jobs:
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
 
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
+
       - name: Deploy report to temp-reports branch
         if: always()
         continue-on-error: true
@@ -804,6 +869,9 @@ jobs:
           mkdir report/S3_bucket
           mv S3_bucket/* report/S3_bucket
           mv mainScript.js report
+
+      - name: Increase Git timeout
+        run: git config --global http.postBuffer 524288000
 
       - name: Deploy report to temp-reports branch
         if: always()
