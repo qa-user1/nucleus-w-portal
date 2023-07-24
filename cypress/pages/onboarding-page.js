@@ -41,6 +41,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     agreementBox = e => cy.get('.ant-alert-message'),
     // saveContinueButton = e => cy.contains('Save and Continue'),
     saveContinueButton = e => cy.get('[data-test="next-btn"]'),
+    netQuestionButton = e => cy.get('[data-test="questions-nextQuestion-btn"]'),
     submitApplicationButton = e => cy.contains('Submit Application'),
     tacticalGrowthField = e => cy.get('#portfolios_1'),
     tacticalIncomeField = e => cy.get('#portfolios_2'),
@@ -253,6 +254,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     superFundName = e => cy.get('[data-test="smsf-superFundName-input"]'),
     SMSFAustralianBusinessNumber = e => cy.get('[data-test="smsf-abn-input"]'),
     SMSFAustralianTaxFileNumber = e => cy.get('[data-test="applicants-tfn-input"]'),
+    creationDate = e => cy.get('.ant-picker'),
     SMSFAddress = e => cy.get('[data-test="applicants-residentialAddress-input"]'),
     applicantFullName = e => cy.get('[data-test="applicants-userCardFullName-text"]'),
     investitorsRequiredMsg = e => cy.get('[data-test="applicants-minInvestors-text"]'),
@@ -1258,6 +1260,11 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
+    click_next_question_button(){
+        nextQuestionButton().click()
+        return this;
+    }
+
     click_Submit_Application_button() {
         submitApplicationButton().should('not.have.attr', 'disabled')
         this.scroll_and_click(submitApplicationButton)
@@ -1302,7 +1309,8 @@ export default class OnboardingPage extends BasePage {
         this.verify_text_is_visible('General Details');
         this.verify_text_is_visible('Tax Details');
         this.verify_text_is_visible('Residential Address');
-        employmentStatusHeader().should('be.visible');
+        this.verify_text_is_visible('Employment Status');
+       // employmentStatusHeader().should('be.visible');
         return this;
     }
 
@@ -1673,6 +1681,9 @@ export default class OnboardingPage extends BasePage {
         superFundName().type(data.superFundName);
         SMSFAustralianBusinessNumber().type(data.SMSFAustralianBusinessNumber);
         SMSFAustralianTaxFileNumber().type(data.SMSFAustralianTaxFileNumber);
+        creationDate().click()
+        creationDate().clear();
+        creationDate().type(data.creationDate).type('{enter}');
         SMSFAddress().clear();
         SMSFAddress().type(data.address)
         cy.get('[type="radio"]').check('individual');
@@ -1699,9 +1710,13 @@ export default class OnboardingPage extends BasePage {
         trustNameInputField().type(data.trustName);
         trustTypeInputField().click();
         cy.wait(2000)
+        unitTrustType().scrollIntoView()
         unitTrustType().click();
         SMSFAustralianTaxFileNumber().type(data.SMSFAustralianTaxFileNumber);
         cy.get('[type="radio"]').check('individual');
+        creationDate().click()
+        creationDate().clear();
+        creationDate().type(data.creationDate).type('{enter}');
         return this;
     }
 
