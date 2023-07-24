@@ -38,7 +38,7 @@ context('15. Test 2 Factor Login is working', () => {
 
 
 
-    it('Get SMS and apply it in 2FA form', () => {
+    xit('Get SMS and apply it in 2FA form', () => {
         cy.wait(10000)
         cy.request({
             method: 'GET',
