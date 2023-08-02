@@ -1805,6 +1805,11 @@ export default class OnboardingPage extends BasePage {
         return this;
     }
 
+    answerQuestionsWithSpecificOptionBasedOnText(text) {
+        cy.contains(text).click()
+        return this;
+    }
+
     enter_investment_amount(value) {
         investmentAmountInput().type(value)
         return this;
@@ -2182,7 +2187,7 @@ export default class OnboardingPage extends BasePage {
             'Medibank Private (MPL)',
             'National Australia Bank (NAB)',
             'Northern Star Resources (NST)',
-            'Qantas Airways (QAN)',
+           // 'Qantas Airways (QAN)',
             'Sonic Healthcare (SHL)',
             'Transurban (TCL)',
             'Treasury Wine Estates (TWE)',
