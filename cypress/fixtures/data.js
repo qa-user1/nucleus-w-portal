@@ -473,11 +473,12 @@ D.applicantsProfileFields = {
     taxInput: '11111111',
     occupation: 'Analyst',
     employerName: 'Test test',
-    employerAddress: 'Angola',
+    employerAddress: 'Australia',
     type: 'test',
     licenseExpiryDate: '28/02/2026',
     employerBusiness: 'Computer/Information Technology',
-    residentialAddress: 'Terminal 3 & Terminal 4, Perth Airport WA 6105, Australia',
+    residentialAddress: 'Pimpama QLD 4209, Australia',
+    apartmentNumber: '12',
     annualNetIncome: '100000',
     netWorth: '20000'
 
@@ -492,7 +493,8 @@ D.investmentExperience = {
 D.documentType = {
     telephoneBill: 'Telephone Bill',
     waterBill: 'Water Bill',
-    id: 'id.jpg'
+    id: 'sample.pdf',
+    id2: 'id.jpg'
 }
 
 D.bankDetails = {

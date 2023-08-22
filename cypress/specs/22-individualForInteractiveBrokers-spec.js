@@ -32,7 +32,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
         ui.login.open_base_url()
             .verify_login_menu(D.user)
             .enter_credentials_and_click_Sign_In(D.ibUser.username, D.ibUser.password)
-          .redirect_user_to_the_create_a_new_account_page()
+            .redirect_user_to_the_create_a_new_account_page()
         ui.onboarding.verify_account_selection()
     })
 
@@ -113,6 +113,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
     })
 
     it('9. Complete Applicants', function () {
+      //  cy.visit('https://testwebserver.nucleuswealth.com/onboarding/3593/applicants')
         ui.onboarding.remove_existing_applicant()
             .verify_text_is_visible(D.applicantsProfileValidationMessages.successfullyRemovedApplicant)
         ui.onboarding.add_new_applicant()
@@ -120,8 +121,11 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
             .verify_text_is_visible('Investment Experience')
         D.applicantsProfileFields.employmentInput = 'Unemployed'
         D.applicantsProfileFields.type = 'Individual-IB'
-        ui.onboarding.enter_values_at_create_new_applicant_input_fields(D.applicantsProfileFields)
-            .enter_applicant_investment_experience(D.investmentExperience)
+        ui.onboarding
+            .enter_values_for_employment_details(D.applicantsProfileFields)
+            .enter_values_at_create_new_applicant_input_fields(D.applicantsProfileFields, '1')
+            .enter_investment_experience_values(D.investmentExperience)
+            .choose_driver_license_format()
             .click_submit_applicant_button()
             .verify_your_identity()
         cy.url().should('include', 'applicants')
@@ -207,7 +211,6 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
             .select_all_checkboxes(7)
             .click_Submit_Application_button()
         ui.onboarding.verify_success_page()
-        // cy.wait(45000)
         ui.onboarding.verify_email_arrives_to_specified_address(D.gmailAccount, C.emailTemplates.individual_IB_AccountCreated)
     });
 })
