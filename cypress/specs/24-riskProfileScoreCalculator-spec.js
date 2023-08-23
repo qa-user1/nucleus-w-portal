@@ -22,7 +22,7 @@ before(function () {
 context('24. Onboarding Portal - Risk Profile Score Calculator -- data set #', () => {
 
   //  for (let i = 0; i < dataSets.length; i++) {
-    for (let i = 15; i < 16; i++) {
+    for (let i = 0; i < 19; i++) {
         it('24. Onboarding Portal - Risk Profile Score Calculator -- data set #' + i, () => {
 
             function removeLastComma(str) {
