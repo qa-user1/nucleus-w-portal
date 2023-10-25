@@ -176,7 +176,8 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
 
     it('13. Limited Advice Path', function () {
         ui.onboarding.click_sidebar_option('Investment Choice')
-            .go_through_tour_steps(C.investmentStepMessages)
+        ui.app.pause(4)
+        ui.onboarding.go_through_tour_steps(C.investmentStepMessages)
             .verify_investment_choice_page()
             .click_limited_advice_button()
             .select_all_checkboxes(6)

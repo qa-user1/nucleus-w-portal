@@ -325,6 +325,7 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     meetings = e => cy.get('.meetings-iframe-container > iframe'),
     nextButtonTourWindow = e => cy.get('[class="ant-btn css-86j49d ant-btn-primary ant-btn-sm ant-tour-next-btn"]'),
     nextQuestionButton = e => cy.get('[data-test="questions-nextQuestion-btn"]'),
+    nextButtonTourWindow = e => cy.get('.ant-btn-primary > span'),
     investmentChoiceSideBar = e => cy.get('[class="ant-layout-sider ant-layout-sider-dark"]'),
     companyNameValidationMsg = e => cy.contains('Company Name').parent().parent().find('[role="alert"]'),
     companyAustralianBusinessNumberValidationMsg = e => cy.contains('Company Australian Business Number').parent().parent().find('[role="alert"]'),
