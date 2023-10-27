@@ -324,8 +324,8 @@ let answer = (questionNumber, answerNumber) => cy.get('.ant-col-xxl-12').eq(ques
     chat = e => cy.get('[id="hubspot-conversations-inline-iframe"]'),
     meetings = e => cy.get('.meetings-iframe-container > iframe'),
     //nextButtonTourWindow = e => cy.get('[class="ant-btn css-86j49d ant-btn-primary ant-btn-sm ant-tour-next-btn"]'),
-    nextQuestionButton = e => cy.get('[data-test="questions-nextQuestion-btn"]'),
     nextButtonTourWindow = e => cy.get('.ant-btn-primary > span'),
+    nextQuestionButton = e => cy.get('[data-test="questions-nextQuestion-btn"]'),
     investmentChoiceSideBar = e => cy.get('[class="ant-layout-sider ant-layout-sider-dark"]'),
     companyNameValidationMsg = e => cy.contains('Company Name').parent().parent().find('[role="alert"]'),
     companyAustralianBusinessNumberValidationMsg = e => cy.contains('Company Australian Business Number').parent().parent().find('[role="alert"]'),
@@ -630,6 +630,7 @@ export default class OnboardingPage extends BasePage {
     }
 
     click_submit_applicant_button() {
+        submitApplicantButton().scrollIntoView()
         submitApplicantButton().should('be.visible');
         //    cy.wait(5000)
         //    this.scroll_and_click(submitApplicantButton)
