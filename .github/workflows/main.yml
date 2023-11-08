@@ -610,7 +610,7 @@ jobs:
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - run: npm run clearGmail
-          if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - uses: nick-invision/retry@v2
         with:
@@ -658,7 +658,7 @@ jobs:
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - run: npm run clearGmail
-          if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - uses: nick-invision/retry@v2
         with:
