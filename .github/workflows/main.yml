@@ -1,8 +1,8 @@
 name: Cypress Tests
 on:
-   schedule:
-    - cron: '0 2 * * *'
- # [ push ]
+  # schedule:
+   # - cron: '0 2 * * *'
+  [ push ]
 
 permissions: write-all
 
@@ -561,6 +561,9 @@ jobs:
       - run: npm i
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
+      - run: npm run clearGmail
+        if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
@@ -606,6 +609,9 @@ jobs:
       - run: npm i
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
+      - run: npm run clearGmail
+          if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
       - uses: nick-invision/retry@v2
         with:
           timeout_minutes: 10
@@ -650,6 +656,9 @@ jobs:
 
       - run: npm i
         if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
+
+      - run: npm run clearGmail
+          if: (github.event_name == 'schedule' && steps.get-date.outputs.date == '3')
 
       - uses: nick-invision/retry@v2
         with:
