@@ -7,7 +7,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
 
 
     before(function () {
-        /*Cypress.Cookies.debug(true)
+        Cypress.Cookies.debug(true)
         cy.preserveCookieOnce(
             'secure',
             'ntercom',
@@ -20,10 +20,10 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
             '__Secure-next-auth.callback-url',
             '__Secure-next-auth.session-token',
             '__Host-next-auth.csrf-token',
-        )*/
-        cy.clearAllLocalStorage()
-        cy.clearAllCookies()
-        cy.clearAllSessionStorage()
+        )
+        /* cy.clearAllLocalStorage()
+         cy.clearAllCookies()
+         cy.clearAllSessionStorage()*/
 
     })
 
@@ -113,7 +113,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
     })
 
     it('9. Complete Applicants', function () {
-      //  cy.visit('https://testwebserver.nucleuswealth.com/onboarding/3593/applicants')
+       // cy.visit('https://testwebserver.nucleuswealth.com/onboarding/4754/applicants')
         ui.onboarding.remove_existing_applicant()
             .verify_text_is_visible(D.applicantsProfileValidationMessages.successfullyRemovedApplicant)
         ui.onboarding.add_new_applicant()
@@ -158,6 +158,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
     });
 
     it('12. Check Final Review', function () {
+       // cy.visit('https://testwebserver.nucleuswealth.com/onboarding/4754/final-review')
         ui.onboarding.verify_Documents_available_for_download([
             'Investment and Fee Summary',
             'MDA Brochure and Agreement',
@@ -176,7 +177,7 @@ context('22. Individual Onboarding for Interactive Brokers', () => {
 
     it('13. Limited Advice Path', function () {
         ui.onboarding.click_sidebar_option('Investment Choice')
-        ui.app.pause(4)
+            ui.app.pause(4)
         ui.onboarding.go_through_tour_steps(C.investmentStepMessages)
             .verify_investment_choice_page()
             .click_limited_advice_button()
